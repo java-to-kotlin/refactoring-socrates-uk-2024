@@ -1,0 +1,11 @@
+{
+  "boat": "Another Boat",
+  "tasks": [
+    {
+      "when": "regular",
+      "task": "A regular task",
+      "frequency": 4,
+      "lastDone": "2023-10-12"
+    }
+  ]
+}

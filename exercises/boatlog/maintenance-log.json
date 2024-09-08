@@ -1,0 +1,59 @@
+{
+  "boat": "Titanic",
+  "tasks": [
+    {
+      "when": "regular",
+      "task": "Check Oil Level",
+      "frequency": 1,
+      "lastDone": "2024-04-08"
+    },
+    {
+      "when": "regular",
+      "task": "Grease stern gland",
+      "frequency": 2,
+      "lastDone": "2023-11-24"
+    },
+    {
+      "when": "regular",
+      "task": "Black bottom",
+      "frequency": 12,
+      "lastDone": "2024-02-12"
+    },
+    {
+      "when": "regular",
+      "task": "Varnish the barge pole",
+      "frequency": 2,
+      "lastDone": "2024-01-23"
+    },
+    {
+      "when": "regular",
+      "task": "Check and adjust fan belt",
+      "frequency": 2,
+      "lastDone": "2024-02-12"
+    },
+    {
+      "when": "regular",
+      "task": "Check and adjust steering",
+      "frequency": 4,
+      "lastDone": "2023-12-30"
+    },
+    {
+      "when": "regular",
+      "task": "Top up battery acid",
+      "frequency": 3,
+      "lastDone": "2023-12-30"
+    },
+    {
+      "when": "cruising",
+      "task": "Drain fuel system sedimenters",
+      "frequency": 100,
+      "remaining": 0
+    },
+    {
+      "when": "cruising",
+      "task": "Replace fuel system pre-filter",
+      "frequency": 150,
+      "remaining": 40
+    }
+  ]
+}

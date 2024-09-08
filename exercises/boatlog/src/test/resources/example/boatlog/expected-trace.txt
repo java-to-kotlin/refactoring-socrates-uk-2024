@@ -1,0 +1,56 @@
+Tasks to do:
+ 1. Grease stern gland
+ 2. Varnish the barge pole
+
+Choose one of...
+1: Mark task as done
+2: Record cruising time
+0: Exit
+> 1
+
+Choose one of...
+1: Grease stern gland
+2: Varnish the barge pole
+0: Back
+> 2
+Tasks to do:
+ 1. Grease stern gland
+
+Choose one of...
+1: Mark task as done
+2: Record cruising time
+0: Exit
+> 1
+
+Choose one of...
+1: Grease stern gland
+0: Back
+> 1
+No tasks to do. Pequod is ready for cruising.
+
+Choose one of...
+1: Mark task as done
+2: Record cruising time
+0: Exit
+> 2
+Enter hours cruised > 12
+Tasks to do:
+ 1. Drain fuel system sedimenters
+
+Choose one of...
+1: Mark task as done
+2: Record cruising time
+0: Exit
+> 1
+
+Choose one of...
+1: Drain fuel system sedimenters
+0: Back
+> 1
+No tasks to do. Pequod is ready for cruising.
+
+Choose one of...
+1: Mark task as done
+2: Record cruising time
+0: Exit
+> 0

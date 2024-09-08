@@ -1,0 +1,11 @@
+{
+  "boat": "Another Boat",
+  "tasks": [
+    {
+      "when": "cruising",
+      "task": "A cruising task",
+      "frequency": 150,
+      "remaining": 30
+    }
+  ]
+}
