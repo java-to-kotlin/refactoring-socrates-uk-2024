@@ -12,5 +12,5 @@
 Before the workshop, install the following:
 
  * IntelliJ
- * Kotlin 1.9.2 or above
+ * Kotlin 2.0.20 or above
 
