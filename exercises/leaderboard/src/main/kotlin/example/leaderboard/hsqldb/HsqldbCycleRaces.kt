@@ -104,7 +104,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
         c.prepareStatement(
             //language=HSQLDB
             """
-            insert into result (race_id, rider_id, distance)
+            insert into result (race_id, rider_id, distance_km)
             values (?, ?, 0)
             """
         ).use { s ->
@@ -119,7 +119,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
             //language=HSQLDB
             """
             update result
-            set distance = ?
+            set distance_km = ?
             where race_id = ?
               and rider_id = ?
             """
@@ -139,7 +139,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
             select
                 rider.id as rider_id,
                 rider.name as rider_name,
-                result.distance as distance_km
+                result.distance_km as distance_km
             from result
             join rider on rider.id = result.rider_id
             where race_id = ?
@@ -152,7 +152,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                     LeaderboardRow(
                         riderId = rs.get(RiderId, "rider_id"),
                         riderName = rs.getString("rider_name"),
-                        distanceKm = rs.getBigDecimal("distance")
+                        distanceKm = rs.getBigDecimal("distance_km")
                     )
                 }.toList()
             }
