@@ -8,17 +8,17 @@ import java.lang.Thread.sleep
 
 fun main(args: Array<String>) {
     val raceId = RaceId.of(args.getOrNull(0)?.toIntOrNull() ?: 1)
-    
+
     val transactor = HsqldbTransactor(createHsqldbDataSource(), ::HsqldbCycleRaces)
-    
+
     while (true) {
         val leaderboard = transactor.perform(ReadOnly) { club ->
             club.loadLeaderboard(raceId)
         }
-        
+
         clearScreen()
         println()
-        
+
         if (leaderboard == null) {
             println("Waiting for race $raceId to be created...")
         } else {
@@ -30,11 +30,11 @@ fun main(args: Array<String>) {
                 println("%2s %-24s %s".format("ID", "Rider Name", "Distance (km)"))
                 println("-- ------------------------ -------------")
                 leaderboard.forEach { row ->
-                    println("%02d %-24s %s".format(row.riderId.value, row.riderName, row.distance))
+                    println("%02d %-24s %s".format(row.riderId.value, row.riderName, row.distanceKm))
                 }
             }
         }
-        
+
         sleep(1000)
     }
 }

@@ -25,7 +25,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                     ?: error("did not receive id of new Rider")
             }
         }
-    
+
     override fun loadRider(riderId: RiderId): Rider? =
         c.prepareStatement(
             //language=HSQLDB
@@ -36,7 +36,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                 rs.singleOrNull { getRider() }
             }
         }
-    
+
     override fun listRiders(count: Int, after: RiderId?): List<Rider> {
         return c.prepareStatement(
             //language=HSQLDB
@@ -49,13 +49,13 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
         ).use { s ->
             s.setInt(1, after?.value ?: 0)
             s.setInt(2, count)
-            
+
             s.executeQuery().use { rs ->
                 rs.asSequence { getRider() }.toList()
             }
         }
     }
-    
+
     override fun createRace(name: String): Race {
         val id = c.prepareStatement(
             //language=HSQLDB
@@ -69,10 +69,10 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                     ?: error("did not receive id of new Race")
             }
         }
-        
+
         return Race(id, name)
     }
-    
+
     override fun loadRace(raceId: RaceId): Race? =
         c.prepareStatement(
             //language=HSQLDB
@@ -83,7 +83,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                 rs.singleOrNull { Race(raceId, getString("name")) }
             }
         }
-    
+
     override fun loadCompetitors(raceId: RaceId): Set<RiderId> =
         c.prepareStatement(
             //language=HSQLDB
@@ -98,8 +98,8 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                 rs.asSequence { rs.get(RiderId, "rider_id") }.toSet()
             }
         }
-    
-    
+
+
     override fun addCompetitor(raceId: RaceId, riderId: RiderId) {
         c.prepareStatement(
             //language=HSQLDB
@@ -113,7 +113,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
             s.executeUpdate()
         }
     }
-    
+
     override fun logDistance(raceId: RaceId, riderId: RiderId, distance: BigDecimal) {
         c.prepareStatement(
             //language=HSQLDB
@@ -130,7 +130,7 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
             s.executeUpdate()
         }
     }
-    
+
     override fun loadLeaderboard(raceId: RaceId): Leaderboard? {
         val race = loadRace(raceId) ?: return null
         val rankings = c.prepareStatement(
@@ -152,14 +152,14 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
                     LeaderboardRow(
                         riderId = rs.get(RiderId, "rider_id"),
                         riderName = rs.getString("rider_name"),
-                        distance = rs.getBigDecimal("distance")
+                        distanceKm = rs.getBigDecimal("distance")
                     )
                 }.toList()
             }
         }
         return Leaderboard(race.name, rankings)
     }
-    
+
     private fun ResultSet.getRider(): Rider =
         Rider(get(RiderId, "id"), getString("name"))
 }

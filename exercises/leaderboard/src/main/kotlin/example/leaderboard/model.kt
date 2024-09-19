@@ -29,7 +29,7 @@ interface CycleRaces {
     fun registerRider(name: String): RiderId
     fun loadRider(riderId: RiderId): Rider?
     fun listRiders(count: Int, after: RiderId? = null): List<Rider>
-    
+
     fun createRace(name: String): Race
     fun loadRace(raceId: RaceId): Race?
     fun addCompetitor(raceId: RaceId, riderId: RiderId)
@@ -46,7 +46,7 @@ data class Leaderboard(
 data class LeaderboardRow(
     val riderId: RiderId,
     val riderName: String,
-    val distance: BigDecimal
+    val distanceKm: BigDecimal
 )
 
 

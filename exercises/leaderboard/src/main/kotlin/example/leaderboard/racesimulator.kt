@@ -34,16 +34,16 @@ fun main() {
     val dataSource = createHsqldbDataSource()
     val transactor = HsqldbTransactor<CycleRaces>(dataSource, ::HsqldbCycleRaces)
     val rng = Random()
-    
+
     var raceSim = transactor.perform { races ->
         initialiseSimulation(races)
     }
-    
+
     while (true) {
         sleep(1000)
         println("Tick ${clock.instant()}")
         raceSim = raceSim.tick(rng)
-        
+
         transactor.perform { races ->
             races.updateRaceStatus(raceSim)
         }
@@ -52,7 +52,7 @@ fun main() {
 
 private fun initialiseSimulation(races: CycleRaces): SimulatedRace {
     val faker = Faker(FakerConfig.builder().build())
-    
+
     val leaderboard = races.loadLeaderboard(currentRaceId)
     val riderStatuses = if (leaderboard == null) {
         val completedRace = createNewRace(races, faker, completedRaceId)
@@ -62,7 +62,7 @@ private fun initialiseSimulation(races: CycleRaces): SimulatedRace {
                 (faker.random.nextDouble() * 25.0 + 75.0).toBigDecimal()
             )
         }
-        
+
         val nextRace = createNewRace(races, faker, currentRaceId)
         println("Race started")
         nextRace
@@ -71,13 +71,13 @@ private fun initialiseSimulation(races: CycleRaces): SimulatedRace {
         println("Continuing race")
         leaderboard.rankings
             .sortedBy { it.riderId }
-            .map { it.riderId to it.distance.toDouble() }
+            .map { it.riderId to it.distanceKm.toDouble() }
     }
-    
+
     // Deterministic so that restarting the app continues the simulated race with the
     // same rider behaviour
     val rng = Random(currentRaceId.value.toLong())
-    
+
     return SimulatedRace(
         raceId = currentRaceId,
         riders = riderStatuses.map { (riderId, distance) ->
@@ -97,12 +97,12 @@ private fun createNewRace(
     raceId: RaceId
 ): List<RiderId> {
     val newRace = races.createRace(faker.address.city() + " Endurance Race")
-    
+
     // To make it easy to run the exercise, we only simulate the race with id 2
     if (newRace.id != raceId) {
         error("did not assign expected race ID: expected id $raceId, created id ${newRace.id}")
     }
-    
+
     return (1..10).map {
         races.registerRider(faker.funnyName.name())
             .also { races.addCompetitor(raceId, it) }
