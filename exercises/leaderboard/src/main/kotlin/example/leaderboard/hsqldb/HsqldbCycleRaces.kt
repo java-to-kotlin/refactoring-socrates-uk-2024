@@ -139,11 +139,11 @@ class HsqldbCycleRaces(private val c: Connection) : CycleRaces {
             select
                 rider.id as rider_id,
                 rider.name as rider_name,
-                result.distance as distance
+                result.distance as distance_km
             from result
             join rider on rider.id = result.rider_id
             where race_id = ?
-            order by distance desc, rider.id
+            order by distance_km desc, rider.id
             """
         ).use { s ->
             s.set(1, race.id)
